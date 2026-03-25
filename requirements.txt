@@ -1,0 +1,12 @@
+ipython
+Pillow
+opencv-python
+fcsparser
+matplotlib
+numpy
+pandas
+phasorpy
+scipy
+tifffile
+PyQt5
+jupyter
