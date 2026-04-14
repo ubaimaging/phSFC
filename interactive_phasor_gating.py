@@ -49,6 +49,8 @@ GATE_COLORS = [
     "#469990",
 ]
 
+DEFAULT_FCS_PATH = '../data/SFC/BAL/Ungated/Control 1.fcs'
+
 
 class PhasorGatingWindow(QMainWindow):
     """Qt-based interactive phasor gating tool supporting multiple simultaneous gates."""
@@ -659,14 +661,15 @@ class PhasorGatingTool:
 # ====================================================================== #
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        fcs_files = [f for f in os.listdir(".") if f.lower().endswith(".fcs")]
-        if not fcs_files:
-            print("Usage: python interactive_BAL_pregated.py <file.fcs>")
-            sys.exit(1)
-        fcs_path = fcs_files[0]
-    else:
+    if len(sys.argv) >= 2:
         fcs_path = sys.argv[1]
+    else:
+        fcs_path = DEFAULT_FCS_PATH
+
+    if not os.path.isfile(fcs_path):
+        print(f"Error: FCS file not found: {fcs_path}")
+        print("Usage: python interactive_phasor_gating.py <file.fcs>")
+        sys.exit(1)
 
     print(f"Loading {fcs_path} ...")
     tool = PhasorGatingTool(fcs_path, harmonic=1)
